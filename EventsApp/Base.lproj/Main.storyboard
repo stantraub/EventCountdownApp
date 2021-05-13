@@ -68,6 +68,71 @@
             </objects>
             <point key="canvasLocation" x="842" y="91"/>
         </scene>
+        <!--Event Detail View Controller-->
+        <scene sceneID="VBS-Y5-gRv">
+            <objects>
+                <viewController storyboardIdentifier="EventDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WAq-Ga-2hc" customClass="EventDetailViewController" customModule="EventsApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yLH-zc-drj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9zc-oM-us7">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="110" placeholderIntrinsicHeight="200" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8OO-Pm-0jX" customClass="TimeRemainingStackView" customModule="EventsApp" customModuleProvider="target">
+                                <rect key="frame" x="152" y="348" width="110" height="200"/>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2P4-0L-W83"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="9zc-oM-us7" secondAttribute="bottom" id="8so-si-hZ3"/>
+                            <constraint firstItem="8OO-Pm-0jX" firstAttribute="centerY" secondItem="yLH-zc-drj" secondAttribute="centerY" id="SZ3-eX-B1c"/>
+                            <constraint firstItem="9zc-oM-us7" firstAttribute="leading" secondItem="yLH-zc-drj" secondAttribute="leading" id="chs-6y-hrv"/>
+                            <constraint firstItem="9zc-oM-us7" firstAttribute="top" secondItem="yLH-zc-drj" secondAttribute="top" id="eG6-ck-frb"/>
+                            <constraint firstAttribute="trailing" secondItem="9zc-oM-us7" secondAttribute="trailing" id="kpB-kS-wnP"/>
+                            <constraint firstItem="8OO-Pm-0jX" firstAttribute="centerX" secondItem="yLH-zc-drj" secondAttribute="centerX" id="o7E-uu-8O2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="9zc-oM-us7" id="93A-58-BtL"/>
+                        <outlet property="timeRemainingStackView" destination="8OO-Pm-0jX" id="XFd-Yr-CYF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qpf-tn-R8R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1578" y="101"/>
+        </scene>
+        <!--Edit Event Vie Controller-->
+        <scene sceneID="z6j-EJ-k2t">
+            <objects>
+                <viewController storyboardIdentifier="EditEventVieController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8Mq-L7-pc0" customClass="EditEventVieController" customModule="EventsApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dd3-Is-woa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TyU-mz-XU3">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yUX-7s-Ez5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="TyU-mz-XU3" firstAttribute="top" secondItem="yUX-7s-Ez5" secondAttribute="top" id="1MU-pg-HkY"/>
+                            <constraint firstItem="TyU-mz-XU3" firstAttribute="leading" secondItem="yUX-7s-Ez5" secondAttribute="leading" id="J1a-mN-iZ6"/>
+                            <constraint firstItem="yUX-7s-Ez5" firstAttribute="trailing" secondItem="TyU-mz-XU3" secondAttribute="trailing" id="uQW-LT-99w"/>
+                            <constraint firstItem="yUX-7s-Ez5" firstAttribute="bottom" secondItem="TyU-mz-XU3" secondAttribute="bottom" id="yLX-2g-00R"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="TyU-mz-XU3" id="Bmu-ch-6Nn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nzT-Dp-LN5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2367" y="100"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">

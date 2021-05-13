@@ -13,7 +13,7 @@ final class EventCell: UITableViewCell {
     
     static let identifer = "EventCell"
     
-    private let timeRemainingLabels = [UILabel(), UILabel(), UILabel(), UILabel()]
+    private let timeRemainingStackView = TimeRemainingStackView()
     private let dateLabel = UILabel()
     private let eventNameLabel = UILabel()
     private let backgroundImageView = UIImageView()
@@ -34,15 +34,12 @@ final class EventCell: UITableViewCell {
     }
     
     private func setupViews() {
-        (timeRemainingLabels + [dateLabel, eventNameLabel, backgroundImageView]).forEach {
+        timeRemainingStackView.setup()
+        
+        [dateLabel, eventNameLabel, backgroundImageView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        
-        timeRemainingLabels.forEach {
-            $0.font = .systemFont(ofSize: 28, weight: .medium)
-            $0.textColor = .white
-        }
-        
+    
         dateLabel.font = .systemFont(ofSize: 22, weight: .medium)
         dateLabel.textColor = .white
         eventNameLabel.font = .systemFont(ofSize: 34, weight: .bold)
@@ -56,9 +53,7 @@ final class EventCell: UITableViewCell {
         contentView.addSubview(verticalStackView)
         contentView.addSubview(eventNameLabel)
         
-        timeRemainingLabels.forEach {
-            verticalStackView.addArrangedSubview($0)
-        }
+        verticalStackView.addArrangedSubview(timeRemainingStackView)
         verticalStackView.addArrangedSubview(dateLabel)
         verticalStackView.addArrangedSubview(eventNameLabel)
     }
@@ -76,11 +71,11 @@ final class EventCell: UITableViewCell {
     }
     
     func configure(with viewModel: EventCellViewModel) {
-        viewModel.timeRemainingStrings.enumerated().forEach {
-            timeRemainingLabels[$0.offset].text = $0.element
+        if let timeRemainingViewModel = viewModel.timeRemainingViewModel {
+            timeRemainingStackView.configure(with: timeRemainingViewModel)
         }
         dateLabel.text = viewModel.dateText
-        
+        eventNameLabel.text = viewModel.eventName
         viewModel.loadImage { image in
             self.backgroundImageView.image = image
         }

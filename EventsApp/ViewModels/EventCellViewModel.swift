@@ -6,16 +6,23 @@
 //
 
 import UIKit
+import CoreData
 
 struct EventCellViewModel {
     
+    // MARK: - Properties
+    
     let date = Date()
-    private static let imageCache = NSCache<NSString, UIImage>()
+    static let imageCache = NSCache<NSString, UIImage>()
+    
     private let imageQueue = DispatchQueue(label: "imageQueue", qos: .background)
+    private let event: Event
     
     private var cacheKey: String {
         event.objectID.description
     }
+    
+    var onSelect: (NSManagedObjectID) -> Void = { _ in }
     
     var timeRemainingStrings: [String] {
         guard let eventDate = event.date else { return [] }
@@ -33,9 +40,23 @@ struct EventCellViewModel {
         event.name
     }
     
-//    var backgroundImage: UIImage {
-//        UIImage(named: "like_selected")!
-//    }
+    var timeRemainingViewModel: TimeRemainingViewModel? {
+        guard let eventDate = event.date,
+              let timeRemainingParts = date.timeRemaining(until: eventDate)?.components(separatedBy: ",") else { return nil }
+        
+        return TimeRemainingViewModel(
+            timeRemainingParts: timeRemainingParts,
+            mode: .cell
+        )
+    }
+
+    // MARK: - Lifecycle
+    
+    init(_ event: Event) {
+        self.event = event
+    }
+    
+    // MARK: - Lifecycle
     
     func loadImage(completion: @escaping(UIImage?) -> Void) {
         if let image = Self.imageCache.object(forKey: cacheKey as NSString) {
@@ -58,8 +79,7 @@ struct EventCellViewModel {
         }
     }
     
-    private let event: Event
-    init(_ event: Event) {
-        self.event = event
+    func didSelect() {
+        onSelect(event.objectID)
     }
 }
