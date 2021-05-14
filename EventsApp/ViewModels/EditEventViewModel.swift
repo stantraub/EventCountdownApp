@@ -28,7 +28,7 @@ final class EditEventViewModel {
     
     private let event: Event
     private let cellBuilder: EventCellBuilder
-    private let coreDataManager: CoreDataManager
+    private let eventService: EventServiceProtocol
     
     private(set) var cells: [EditEventViewModel.Cell] = []
     private var nameCellViewModel: TitleSubtitleCellViewModel?
@@ -43,10 +43,10 @@ final class EditEventViewModel {
     
     // MARK: - Lifecycle
     
-    init(event: Event, cellBuilder: EventCellBuilder, coreDataManager: CoreDataManager = CoreDataManager.shared) {
+    init(event: Event, cellBuilder: EventCellBuilder, eventService: EventServiceProtocol = EventService()) {
         self.event = event
         self.cellBuilder = cellBuilder
-        self.coreDataManager = coreDataManager
+        self.eventService = eventService
     }
     
     // MARK: - Helpers
@@ -74,7 +74,14 @@ final class EditEventViewModel {
               let image = backgroundImageCellViewModel?.image,
               let date = dateFormatter.date(from: dateString) else { return }
         
-        coreDataManager.updateEvent(event: event, name: name, date: date, image: image)
+        eventService.perform(
+            .update(event),
+            EventService.EventInputData(
+                name: name,
+                date: date,
+                image: image
+            )
+        )
         coordinator?.didFinishUpdateEvent()
     }
     

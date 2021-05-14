@@ -7,18 +7,29 @@
 
 import UIKit
 
+protocol EventUpdatingCoordinator {
+    var onUpdateEvent: () -> Void { get }
+}
+
 final class EditEventCoordinator: Coordinator {
+    
+    // MARK: - Properties
+    
     private(set) var childCoordinators: [Coordinator] = []
     private let navigationController: UINavigationController
     private var completion: (UIImage) -> Void = { _ in }
     private let event: Event
     
-    var parentCoordinator: EventDetailCoordinator?
+    var parentCoordinator: (EventDetailCoordinator & Coordinator)?
+    
+    // MARK: - Lifecycle
     
     init(event: Event, navigationController: UINavigationController) {
         self.event = event
         self.navigationController = navigationController
     }
+    
+    // MARK: - Helpers
     
     func start() {
         let editEventVC: EditEventViewController = .instantiate()

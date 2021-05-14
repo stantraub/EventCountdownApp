@@ -19,15 +19,14 @@ final class EventListViewModel {
     
     var coordinator: EventListCoordinator?
     var onUpdate = {}
-    
-    private let coreDataManager: CoreDataManager
-    
+        
     private(set) var cells: [Cell] = []
+    private let eventService: EventServiceProtocol
 
     // MARK: - Lifecycle
     
-    init(coreDataManager: CoreDataManager = CoreDataManager.shared) {
-        self.coreDataManager = coreDataManager
+    init(eventService: EventServiceProtocol = EventService()) {
+        self.eventService = eventService
     }
     
     // MARK: - Helpers
@@ -38,7 +37,7 @@ final class EventListViewModel {
     
     func reload() {
         EventCellViewModel.imageCache.removeAllObjects()
-        let events = coreDataManager.fetchEvents()
+        let events = eventService.getEvents()
         
         cells = events.map {
             var eventCellViewModel = EventCellViewModel($0)
